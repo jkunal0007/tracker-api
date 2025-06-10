@@ -1,0 +1,80 @@
+scalar GraphQLDate
+
+enum StatusType {
+  New
+  Assigned
+  Fixed
+  Closed
+}
+
+type Issue {
+  _id: ID!
+  id: Int!
+  title: String!
+  status: StatusType!
+  owner: String
+  effort: Int
+  created: GraphQLDate!
+  due: GraphQLDate
+  description: String
+}
+
+"Toned down Issue, used as inputs, without server generated values."
+input IssueInputs {
+  title: String!
+  "Optional, if not supplied, will be set to 'New'"
+  status: StatusType = New
+  owner: String
+  effort: Int
+  due: GraphQLDate
+  description: String
+}
+
+input IssueUpdateInputs {
+  title: String 
+  status: StatusType
+  owner: String
+  effort: Int
+  due: GraphQLDate 
+  description: String
+}
+
+type IssueCounts {
+  owner: String!
+  New: Int
+  Assigned: Int
+  Fixed: Int
+  Closed: Int
+}
+
+type IssueListResponse {
+  issues: [Issue!]!
+  pages: Int!
+}
+
+##### Top level declarations
+
+type Query {
+  about: String!
+  issueList(
+    status: StatusType,
+    effortMin: Int,
+    effortMax: Int,
+    page: Int = 1,
+    search: String
+  ): IssueListResponse!
+  issue(id: Int!): Issue!
+  issueCounts(
+    status: StatusType,
+    effortMin: Int,
+    effortMax: Int
+  ): [IssueCounts!]!
+}
+
+type Mutation {
+  setAboutMessage(message: String!): String
+  issueAdd(issue: IssueInputs!): Issue!
+  issueUpdate(id: Int!, changes: IssueUpdateInputs): Issue!
+  issueDelete(id: Int!): Boolean!
+  issueRestore(id: Int!): Boolean!
+}
