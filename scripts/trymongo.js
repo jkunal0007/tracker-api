@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
-const url = process.env.DB_URL || 'mongodb://localhost/issuetracker';
+const url = process.env.DB_URL || 'mongodb+srv://jkunal282:Jain%4029111997@cluster1.4i9ysy7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1';
 function testWithCallbacks(callback) {
   const client = new MongoClient(url, { useNewUrlParser: true });
 

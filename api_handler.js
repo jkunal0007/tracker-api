@@ -50,6 +50,8 @@ function installHandler(app) {
       methods: ['POST', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
     },
+    playground: true,
+    introspection: true,
   });
 }
 

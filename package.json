@@ -2,7 +2,11 @@
   "name": "mern",
   "version": "1.0.0",
   "main": "index.js",
-  "description": "Mern stach API",
+  "description": "Mern stack API",
+  "engines": {
+    "node": ">=18.x",
+    "npm": ">=10.x"
+  },
   "scripts": {
     "compile": "babel src --out-dir public",
     "startOld": "node server.js",
